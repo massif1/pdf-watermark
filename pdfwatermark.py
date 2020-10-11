@@ -22,8 +22,8 @@ def check_args():
 
     if not os.path.exists(pdf_output):
         print('Output folder for watermarked PDFs in second Argument does not exist')
-        print(f'Created folder {pdf_output}')
         os.makedirs(pdf_output)
+        print(f'Created folder {pdf_output}')
 
     if not os.path.isfile(pdf_watermark):
         print(f'Watermark PDF in third Argument does not exist => {pdf_watermark} \n\n exit')
