@@ -25,7 +25,7 @@ def check_args():
         os.makedirs(pdf_output)
         print(f'Created folder {pdf_output}')
 
-    if not os.path.isfile(pdf_watermark):
+    if not os.path.isfile(pdf_watermark) and pdf_watermark.endswith(".pdf"):
         print(f'Watermark PDF in third Argument does not exist => {pdf_watermark} \n\n exit')
         raise SystemExit
 
@@ -44,6 +44,7 @@ def pdf_watermarking():
             pdf_reader = PyPDF2.PdfFileReader(os.path.join(pdf_input, filename))
             pdf_writer = PyPDF2.PdfFileWriter()
 
+            # merge every page in PDF with watermark
             for _ in range(pdf_reader.getNumPages()):
                 page = pdf_reader.getPage(_)
                 page.mergePage(watermark_page)
@@ -53,10 +54,10 @@ def pdf_watermarking():
             filename = os.path.basename(file)
             watermarked_pdf = f'{pdf_output}/{filename}'
 
-            if not os.path.exists(watermarked_pdf):
-                with open(watermarked_pdf, 'wb') as output:
-                    pdf_writer.write(output)
-                print(f'Created {watermarked_pdf}')
+            with open(watermarked_pdf, 'wb') as output:
+                pdf_writer.write(output)
+            print(f'Created {watermarked_pdf}')
+
     print('Done')
 
 
